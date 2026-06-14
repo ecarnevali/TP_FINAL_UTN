@@ -86,12 +86,38 @@ export class UsuariosService {
     }
 
     const nuevoId = this.listadoUsuarios.length > 0 ? Math.max(...this.listadoUsuarios.map(u => u.id)) + 1 : 1;
-    var nuevoUsuario = new Usuario(nuevoId, usuario.nombre, usuario.email, usuario.rol, estado!);
+    var nuevoUsuario: Usuario = {
+      id: nuevoId,
+      nombre: usuario.nombre,
+      email: usuario.email,
+      rol: usuario.rol,
+      estado: estado
+    }
     this.listadoUsuarios.push(nuevoUsuario);
   }
 
   deleteUsuario(id: number): void {
     this.listadoUsuarios = this.listadoUsuarios.filter(usuario => usuario.id !== id);
+  }
+
+  baja(id: number): Observable<Usuario | undefined> {
+
+    const estadoBaja = this.listaEstados.find(e => e.id === 2);
+    this.listadoUsuarios = this.listadoUsuarios.map(usuario =>
+      usuario.id === id ? { ...usuario, estado: estadoBaja ?? usuario.estado } : usuario
+    );
+
+    return of(this.listadoUsuarios.find(usuario => usuario.id === id));
+  }
+
+  cambiarEstado(idEstado: number, id: number) {
+    const estadoBaja = this.listaEstados.find(e => e.id === idEstado);
+    this.listadoUsuarios = this.listadoUsuarios.map(usuario =>
+      usuario.id === id ? { ...usuario, estado: estadoBaja ?? usuario.estado } : usuario
+    );
+
+    return of(this.listadoUsuarios.find(usuario => usuario.id === id));
+
   }
 
 }

@@ -49,7 +49,9 @@
     </div>
 
     <div class="card-actions">
-      <button class="action-btn-outline delete">Dar de Baja</button>
+      <button class="action-btn-outline delete" [disabled]="isBaja" (click)="baja()">Dar de Baja</button>
+      <button class="action-btn-outline suspended" [disabled]="isSuspendido" (click)="suspender()">Suspender</button>
+      <button class="action-btn-outline activar" [disabled]="isActivo" (click)="activar()">Activar</button>
     </div>
 
   </div>

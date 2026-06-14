@@ -20,6 +20,9 @@ export class UsuarioAltaComponent {
   fGroup: FormGroup;
 
   errorMessage: string | null = null;
+  enviado: boolean = false;
+  colorExito: string = 'green';
+
 
 
   constructor(private services: UsuariosService, private fb: FormBuilder) {
@@ -44,8 +47,8 @@ export class UsuarioAltaComponent {
 
     try {
       this.services.agregarUsuario(this.usuarioDto);
-      this.fGroup.reset();
-      this.errorMessage = null;
+
+      this.enviado = true;
     } catch (error: any) {
       this.errorMessage = error;
     }
@@ -63,5 +66,12 @@ export class UsuarioAltaComponent {
       { tipo: 'email', mensaje: 'El email no es válido' }
     ]
   };
+
+  cerrarMensaje() {
+
+    this.errorMessage = null;
+    this.enviado = false;
+    this.fGroup.reset();
+  }
 
 }

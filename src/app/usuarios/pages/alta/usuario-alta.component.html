@@ -4,7 +4,7 @@
         <button type="button" class="btn-volver" routerLink="/usuarios">Ir al Listado</button>
     </div>
 
-    <div class="form-card">
+    <div class="form-card" *ngIf="!enviado">
 
         <div class="card-header-title">
             <p class="subtitle">Complete los datos para dar de alta un nuevo usuario en el sistema.</p>
@@ -74,5 +74,11 @@
 
         </form>
 
+    </div>
+    <div *ngIf="enviado">
+        <h2 [ngStyle]="{ 'color': colorExito }">¡Registro exitoso!</h2>
+        <p>Gracias por registrarte, {{usuarioDto?.nombre}}.</p>
+
+        <button type="button" (click)="cerrarMensaje()">Registrar otro usuario</button>
     </div>
 </div>

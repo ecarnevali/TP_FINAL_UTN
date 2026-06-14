@@ -22,7 +22,6 @@ export class SelectEstadosComponent implements ControlValueAccessor, OnInit {
   @Input()
   hasError: boolean = false;
 
-  isDisabled: boolean = false;
 
   private usuariosService = inject(UsuariosService);
 
@@ -47,30 +46,38 @@ export class SelectEstadosComponent implements ControlValueAccessor, OnInit {
   onChange: any = () => { };
   onTouched: any = () => { };
 
+
+
   onSelectChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
-    // CRITICAL: Convertimos el valor a número porque el ID de tu clase EstadoUsuario es number
-    this.value = selectElement.value ? Number(selectElement.value) : '';
-    this.onChange(this.value);
+    const selectedValue = selectElement.value;
+
+
+    this.value = selectedValue !== '' ? Number(selectedValue) : '';
+
+
+    this.onChange(this.value !== '' ? this.value : null);
     this.onTouched();
   }
 
   writeValue(value: any): void {
-    if (value && typeof value === 'object') {
-      this.value = value.id;
+    if (value === undefined || value === null || value === '') {
+      this.value = '';
+      return;
+    }
+
+    if (typeof value === 'object' && value.id !== undefined) {
+      this.value = Number(value.id);
     } else {
-      this.value = value !== undefined && value !== null ? Number(value) : '';
+      this.value = !isNaN(value) ? Number(value) : '';
     }
   }
+
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
-  }
-
 
 }

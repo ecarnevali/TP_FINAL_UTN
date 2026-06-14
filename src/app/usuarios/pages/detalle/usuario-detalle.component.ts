@@ -18,7 +18,17 @@ export class UsuarioDetalleComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private usuarioService: UsuariosService) { }
 
+  get isSuspendido(): boolean {
+    return this.usuario?.estado.id === 1;
+  }
 
+  get isActivo(): boolean {
+    return this.usuario?.estado.id === 3 || this.usuario?.estado.id === 2;
+  }
+
+  get isBaja(): boolean {
+    return this.usuario?.estado.id === 1;
+  }
 
   ngOnInit(): void {
 
@@ -34,10 +44,37 @@ export class UsuarioDetalleComponent implements OnInit {
     })
   }
 
-  eliminarUsuario(id: number) {
+  eliminarUsuario() {
     if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-      this.usuarioService.deleteUsuario(id);
+      this.usuarioService.deleteUsuario(this.idUsuario);
       this.cargarUsuario();
+    }
+  }
+
+  baja() {
+    if (confirm('¿Estás seguro de que deseas dar de baja este usuario?')) {
+      this.usuarioService.cambiarEstado(2, this.idUsuario).subscribe(result =>
+        this.usuario = result
+      );
+
+    }
+  }
+
+  suspender() {
+    if (confirm('¿Estás seguro de que deseas suspender este usuario?')) {
+      this.usuarioService.cambiarEstado(3, this.idUsuario).subscribe(result =>
+        this.usuario = result
+      );
+
+    }
+  }
+
+  activar() {
+    if (confirm('¿Estás seguro de que deseas activar este usuario?')) {
+      this.usuarioService.cambiarEstado(1, this.idUsuario).subscribe(result =>
+        this.usuario = result
+      );
+
     }
   }
 
