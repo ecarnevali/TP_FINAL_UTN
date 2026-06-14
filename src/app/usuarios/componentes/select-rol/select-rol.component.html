@@ -1,0 +1,11 @@
+<select 
+  [value]="value" 
+  (change)="onSelectChange($event)" 
+  (blur)="onTouched()"
+  [ngClass]="{'input-error': hasError}">
+  
+  <option value="" disabled selected>Seleccione un rol...</option>
+  <option *ngFor="let rol of roles" [value]="rol">
+    {{ rol }}
+  </option>
+</select>

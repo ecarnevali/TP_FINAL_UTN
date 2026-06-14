@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="header-section">
+    <h2>Detalle del Usuario</h2>
+    <button class="btn-volver" routerLink="/usuarios">Volver al Listado</button>
+  </div>
+
+  <div class="detail-card">
+    
+    <div class="card-header-profile">
+      <div class="avatar-circle">
+        {{ usuario?.nombre?.charAt(0) }}
+      </div>
+      <div class="profile-title">
+        <h3>{{ usuario?.nombre }}</h3>
+        <span class="user-username">ID: #{{ usuario?.id }}</span>
+      </div>
+    </div>
+
+    <div class="detail-content">
+      
+      <div class="detail-row">
+        <span class="detail-label">Nombre Completo</span>
+        <span class="detail-value">{{ usuario?.nombre }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Correo Electrónico</span>
+        <span class="detail-value mail-value">{{ usuario?.email }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Rol asignado</span>
+        <span class="detail-value font-medium">{{ usuario?.rol }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Estado de la cuenta</span>
+        <span class="detail-value">
+          <span class="badge" [ngClass]="{
+            'active': usuario?.estado?.nombre === 'Activo',
+            'inactive': usuario?.estado?.nombre === 'Inactivo',
+            'suspended': usuario?.estado?.nombre === 'Suspendido'
+          }">
+            {{ usuario?.estado?.nombre }}
+          </span>
+        </span>
+      </div>
+
+    </div>
+
+    <div class="card-actions">
+      <button class="action-btn-outline delete">Dar de Baja</button>
+    </div>
+
+  </div>
+</div>

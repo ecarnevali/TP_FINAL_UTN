@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="header-section">
+        <h2>Listado de Usuarios</h2>
+        <button class="btn btn-primary" routerLink="/usuarios/alta">Agregar Usuario</button>
+    </div>
+
+    <div *ngIf="listadoUsuarios.length === 0" class="no-data">
+        No hay usuarios registrados.
+    </div>
+
+    <div *ngIf="listadoUsuarios.length > 0" class="table-card">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let usuario of listadoUsuarios">
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.rol }}</td>
+                    <td>
+                        <span class="badge" [ngClass]="{
+                            'active': usuario.estado.nombre === 'Activo',
+                            'inactive': usuario.estado.nombre === 'Inactivo'
+                        }">
+                            {{ usuario.estado.nombre }}
+                        </span>
+                    </td>
+                    <td class="actions-cell">
+                        <button class="action-btn view" title="Ver"  [routerLink]="['/usuarios', usuario.id]">🔍</button>
+                        <button class="action-btn delete" title="Eliminar" (click)="eliminarUsuario(usuario.id)">🗑️</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

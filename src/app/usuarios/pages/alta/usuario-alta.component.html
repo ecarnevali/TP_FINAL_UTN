@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="header-section">
+        <h2>Nuevo Usuario</h2>
+        <button type="button" class="btn-volver" routerLink="/usuarios">Ir al Listado</button>
+    </div>
+
+    <div class="form-card">
+
+        <div class="card-header-title">
+            <p class="subtitle">Complete los datos para dar de alta un nuevo usuario en el sistema.</p>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-alert">
+            {{ errorMessage }}
+        </div>
+
+        <form [formGroup]="fGroup" (ngSubmit)="alta()" class="reactive-form">
+
+            <div class="form-group">
+                <label for="nombre">Nombre Completo</label>
+                <input [ngClass]="{ 'is-invalid':  fGroup.get('nombre')?.invalid &&  fGroup.get('nombre')?.touched }"
+                    id="nombre" formControlName="nombre" />
+
+                <div *ngFor="let error of mensajeErrores.nombre">
+                    <small class="alert alert-danger custom-error"
+                        *ngIf=" fGroup.get('nombre')?.hasError(error.tipo) &&  fGroup.get('nombre')?.touched">
+                        {{ error.mensaje }}
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input [ngClass]="{ 'is-invalid':  fGroup.get('email')?.invalid &&  fGroup.get('email')?.touched }"
+                    id="email" formControlName="email" />
+
+                <div *ngFor="let error of mensajeErrores.email">
+                    <small class="alert alert-danger custom-error"
+                        *ngIf=" fGroup.get('email')?.hasError(error.tipo) &&  fGroup.get('email')?.touched">
+                        {{ error.mensaje }}
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="rol">Rol del Usuario</label>
+
+                <app-select-rol id="rol" formControlName="rol"
+                    [hasError]="(fGroup.get('rol')?.touched && fGroup.get('rol')?.invalid) ?? false">
+                </app-select-rol>
+
+                <span class="error-text" *ngIf="fGroup.get('rol')?.touched && fGroup.get('rol')?.hasError('required')">
+                    Debe seleccionar un rol para el usuario.
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="idEstado">Estado</label>
+
+                <app-select-estados id="idEstado" formControlName="idEstado"
+                    [hasError]="(fGroup.get('idEstado')?.touched && fGroup.get('idEstado')?.invalid) ?? false">
+                </app-select-estados>
+
+                <span class="error-text"
+                    *ngIf="fGroup.get('idEstado')?.touched && fGroup.get('idEstado')?.hasError('required')">
+                    El estado obligatorio.
+                </span>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-cancelar" routerLink="/usuarios">Cancelar</button>
+                <button type="submit" class="btn-guardar" [disabled]="fGroup.invalid">Guardar Usuario</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>

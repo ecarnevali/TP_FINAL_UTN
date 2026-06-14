@@ -1,0 +1,12 @@
+<select 
+  [value]="value" 
+  (change)="onSelectChange($event)" 
+  (blur)="onTouched()"
+  [disabled]="isDisabled"
+  [ngClass]="{'input-error': hasError}">
+  
+  <option value="" disabled selected>Seleccione un estado...</option>
+  <option *ngFor="let estado of listaEstados" [value]="estado.id">
+    {{ estado.nombre }}
+  </option>
+</select>
