@@ -1,0 +1,13 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8fafc; /* Gris ultra claro para destacar las tarjetas blancas */
+}
+
+.main-content {
+  flex: 1;
+  /* Margen izquierdo idéntico al ancho del sidebar para que no tape nada */
+  margin-left: 260px; 
+  padding: 2rem;
+  box-sizing: border-box;
+}

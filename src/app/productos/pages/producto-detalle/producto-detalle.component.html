@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="header-section">
+        <h2>Detalle del Producto</h2>
+        <button class="btn-volver" routerLink="/productos">Volver al Listado</button>
+    </div>
+
+    <div class="detail-card" *ngIf="producto">
+
+        <div class="card-header-profile">
+            <div class="profile-title">
+                <h3>{{ producto.titulo }}</h3>
+                <span class="user-username">ID: #{{ producto.id }}</span>
+            </div>
+        </div>
+
+        <div class="detail-content">
+            <div class="detail-row">
+                <span class="detail-label">Descripcion</span>
+                <span class="detail-value mail-value">{{ producto.descripcion }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Precio</span>
+                <span class="detail-value mail-value">{{ producto.precio | currency:'USD':'symbol':'1.2-2'}}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Precio con Descuento </span>
+                <span class="detail-value font-medium">{{ producto.precio | descuento: producto.descuento |
+                    currency:'USD':'symbol':'1.2-2' }}</span>
+            </div>
+
+            <div class="detail-row" *ngIf="producto.descuento">
+                <span class="detail-label">Descuento Aplicado</span>
+                <span class="detail-value text-danger">{{ (producto.descuento / 100) | percent:'1.0-0' }}</span>
+            </div>
+        </div>
+    </div>
+
+</div>

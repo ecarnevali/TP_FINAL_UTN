@@ -19,15 +19,15 @@ export class UsuarioDetalleComponent implements OnInit {
   constructor(private route: ActivatedRoute, private usuarioService: UsuariosService) { }
 
   get isSuspendido(): boolean {
-    return this.usuario?.estado.id === 1;
+    return this.usuario?.estado.id !== 1;
   }
 
   get isActivo(): boolean {
-    return this.usuario?.estado.id === 3 || this.usuario?.estado.id === 2;
+    return this.usuario?.estado.id !== 3 && this.usuario?.estado.id !== 2;
   }
 
   get isBaja(): boolean {
-    return this.usuario?.estado.id === 1;
+    return this.usuario?.estado.id !== 1;
   }
 
   ngOnInit(): void {
